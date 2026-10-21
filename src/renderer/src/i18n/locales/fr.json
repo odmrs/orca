@@ -317,7 +317,7 @@
       "defaultOpensAs": "Ouvrir {{value0}} en tant que",
       "defaultOpensAsChat": "Chat",
       "defaultOpensAsCli": "CLI",
-      "defaultOpensAsScope": "S’applique aux nouvelles sessions {{value0}} sur cet ordinateur, y compris le menu +, et correspond à son interrupteur dans Fournisseurs.",
+      "defaultOpensAsScope": "S’applique aux nouvelles sessions {{value0}} lancées depuis cet ordinateur, y compris sur les hôtes associés. Correspond à son interrupteur dans Fournisseurs.",
       "save": "Enregistrer",
       "clearDefault": "Effacer l'agent par défaut"
     },

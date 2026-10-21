@@ -213,7 +213,7 @@
       "defaultOpensAs": "{{value0}} 的打开方式",
       "defaultOpensAsChat": "聊天",
       "defaultOpensAsCli": "CLI",
-      "defaultOpensAsScope": "适用于这台电脑上新的 {{value0}} 会话（包括 + 菜单），并与 提供方 中的开关一致。",
+      "defaultOpensAsScope": "适用于从这台电脑启动的新 {{value0}} 会话，包括在已配对主机上启动的会话。与提供方中的开关一致。",
       "save": "保存",
       "clearDefault": "清除默认智能体"
     },

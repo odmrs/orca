@@ -123,7 +123,7 @@ export function AgentDefaultSetting({
           <p className="text-xs text-muted-foreground">
             {translate(
               'settings.agents.defaultOpensAsScope',
-              'Applies to new {{value0}} sessions on this computer, including the + menu, and matches its switch under Providers.',
+              'Applies to new {{value0}} sessions launched from this computer, including on paired hosts. Matches its Providers switch.',
               { value0: opensAs.agentLabel }
             )}
           </p>
