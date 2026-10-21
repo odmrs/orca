@@ -16,7 +16,9 @@ import { useMountedRef } from '@/hooks/useMountedRef'
 import { useAppStore } from '@/store'
 import { getAllWorktreesFromState } from '@/store/selectors'
 import { translate } from '@/i18n/i18n'
-import type { ExecutionHostId } from '../../../../shared/execution-host'
+import { toSshExecutionHostId, type ExecutionHostId } from '../../../../shared/execution-host'
+import { RemovalUnsavedFilesNotice } from './RemovalUnsavedFilesNotice'
+import { projectRemovalTargets } from './removal-unsaved-files'
 import { clearHostRename } from './host-rename-remove'
 import type { HostRemovalTarget } from './host-rename-remove'
 import { resolveSshHostRemoval } from './ssh-host-remove-resolution'
@@ -64,6 +66,20 @@ export function HostRemoveDialog({
       sshConnectionStates
     })
   }, [target, repos, worktreesByRepo, sshConnectionStates])
+
+  const unsavedTargets = useMemo(() => {
+    if (!sshResolution || !deleteWorkspaces) {
+      return []
+    }
+    const hostId = toSshExecutionHostId(sshResolution.targetId)
+    return [
+      ...sshResolution.workspaceWorktreeIds.map((id) => ({ id, hostId })),
+      ...projectRemovalTargets(
+        { worktreesByRepo },
+        sshResolution.hostRepoIds.map((repoId) => ({ repoId, hostId }))
+      )
+    ]
+  }, [deleteWorkspaces, sshResolution, worktreesByRepo])
 
   const workspaceCount = sshResolution?.workspaceCount ?? 0
   const hasWorkspaces = workspaceCount > 0
@@ -276,6 +292,8 @@ export function HostRemoveDialog({
             </div>
           </div>
         ) : null}
+
+        <RemovalUnsavedFilesNotice targets={unsavedTargets} enabled={open} />
 
         <DialogFooter className="gap-2 sm:gap-2">
           <Button

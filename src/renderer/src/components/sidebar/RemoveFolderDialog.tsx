@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -17,6 +17,8 @@ import {
 } from '../../../../shared/execution-host'
 import { countOpenRepoTerminalTabs } from '@/store/repos/repo-removal'
 import { getRecipeVmSshTargetForHost } from '@/lib/recipe-vm-managed-host'
+import { RemovalUnsavedFilesNotice } from './RemovalUnsavedFilesNotice'
+import { projectRemovalTargets } from './removal-unsaved-files'
 
 // Why: interpolated into the sentence so locales control where the name sits;
 // U+0000 cannot appear in a real project name, so the split is unambiguous.
@@ -62,6 +64,12 @@ const RemoveFolderDialog = React.memo(function RemoveFolderDialog() {
         (worktree) =>
           worktree.hostId === hostId && worktree.ephemeralVmCheckoutMode === 'provisioned-root'
       )
+  )
+
+  const worktreesByRepo = useAppStore((s) => s.worktreesByRepo)
+  const unsavedTargets = useMemo(
+    () => projectRemovalTargets({ worktreesByRepo }, repoId ? [{ repoId, hostId }] : []),
+    [hostId, repoId, worktreesByRepo]
   )
 
   const openTerminalCount = useAppStore((s) =>
@@ -137,6 +145,7 @@ const RemoveFolderDialog = React.memo(function RemoveFolderDialog() {
             <p className="text-xs font-medium text-foreground">{openTerminalWarning}</p>
           ) : null}
         </DialogHeader>
+        <RemovalUnsavedFilesNotice targets={unsavedTargets} enabled={isOpen} />
         <DialogFooter>
           <Button variant="outline" onClick={() => handleOpenChange(false)}>
             {translate('auto.components.sidebar.RemoveFolderDialog.d36883e046', 'Cancel')}
