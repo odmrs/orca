@@ -2,6 +2,7 @@ import type { CommandSpec } from '../args'
 import { GLOBAL_FLAGS } from '../args'
 import { WORKTREE_LISTING_SCOPE_NOTES } from './worktree-listing-scope-notes'
 import { WORKTREE_SET_COMMAND_SPEC } from './worktree-set'
+import { WORKTREE_SLEEP_COMMAND_SPEC } from './worktree-sleep'
 import { SERVE_COMMAND_SPECS } from './serve'
 import { REPO_COMMAND_SPECS } from './repo'
 import { TERMINAL_SEND_COMMAND_SPEC } from './terminal-send'
@@ -150,6 +151,7 @@ export const CORE_COMMAND_SPECS: CommandSpec[] = [
       'For Git worktrees, removal also attempts to delete the checked-out local branch, with or without --force. Orca retains branches it knows predated the worktree and any branch whose changes it cannot prove are already merged.'
     ]
   },
+  WORKTREE_SLEEP_COMMAND_SPEC,
   {
     path: ['worktree', 'ps'],
     summary: 'Show a compact orchestration summary across worktrees',
