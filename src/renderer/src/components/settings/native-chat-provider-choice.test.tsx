@@ -5,7 +5,7 @@ import { createGlobalSettingsFixture } from '../../../../shared/global-settings-
 import { AgentDefaultSetting } from './AgentDefaultSetting'
 import { buildDefaultAgentOpensAs } from './native-chat-provider-choice'
 
-const store = vi.hoisted(() => ({ settings: null as unknown }))
+const store = vi.hoisted((): { settings: unknown } => ({ settings: null }))
 vi.mock('../../store', () => ({ useAppStore: { getState: () => store } }))
 afterEach(cleanup)
 
